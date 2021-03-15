@@ -13,9 +13,6 @@ init_mem::init_mem() {
 
 init_mem::~init_mem() {
 }
-init_mem::init_mem(std::string file_name, int start, int stop, int m_type)
-	:file_name(file_name), start(start), stop(stop), m_type(m_type) {
-}
 
 void init_mem::memory_initialize(System_Memories& mem){
     // initializing the instruction and data memory to known value
@@ -35,17 +32,14 @@ void init_mem::load_program(vector<string>user_input, System_Memories& mem,int a
 	ifstream inst_file;
 	i = 0;
 	string file = user_input.at(0); // name of files containing machine code
-    cout<<user_input.at(0)<<endl;
 	inst_file.open(file);
-	cout<<"==================================================="<<endl;
 		while (getline(inst_file, data)) {
-			data = data.substr(data.find('x') + 1, data.length() + 1);
-			long long  word = stoll(data, nullptr, 16);
-            cout <<hex<< word << endl;
-			mem.INST_MEMORY[i][0]= word & 0x000000FF;
-            mem.INST_MEMORY[i][1]= word & 0x0000FF00;
-            mem.INST_MEMORY[i][2]= word & 0x00FF0000;
-            mem.INST_MEMORY[i][3]= word & 0xFF000000;
+			data = data.substr(data.find('x') + 1, data.length() + 1);  // Ignore 0x from machine code
+			long long  word = stoll(data, nullptr, 16);                 // Convert string in hexadecimal format to integer
+			mem.INST_MEMORY[i][0]=  word & 0x000000FF;                  // Load Program into instruction memory
+            mem.INST_MEMORY[i][1]= (word & 0x0000FF00)>>8;
+            mem.INST_MEMORY[i][2]= (word & 0x00FF0000)>>16;
+            mem.INST_MEMORY[i][3]= (word & 0xFF000000)>>24;
 			i++;
 		}
 	inst_file.close();	
