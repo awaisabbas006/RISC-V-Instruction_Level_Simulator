@@ -23,8 +23,6 @@ int main(int argc, char* argv[]) {
 	vector<string>user_input;
 	if (argc > 1) {
         user_input.assign(argv + 1, argv + argc);
-        cout << "Argv: " << *(argv+1) << \
-        endl << "Argc: " << argc << endl;
     }
 	initialize(user_input, argc);
 	

@@ -13,18 +13,15 @@ using namespace std;
 class init_mem {
 private:
 	string file_name;
-	int start{};
-	int stop{};
-	int m_type{};
+	string data;
     int i{};
-    string data;
+    
 public:
-	init_mem();
-	init_mem(string file_name, int start, int stop, int m_type);
-	~init_mem();
+	init_mem();		// Constructor
+	~init_mem();	// Destructor
 
-    void memory_initialize(System_Memories& mem);
-    void load_program(vector<string>user_input, System_Memories& mem, int argc);
+    void memory_initialize(System_Memories& mem);	// Initialze Instruction and Data memory to known value
+    void load_program(vector<string>user_input, System_Memories& mem, int argc);	// Load program into instruction memory
 };
 
 #endif //init_mem_HPP
